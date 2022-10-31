@@ -8,7 +8,6 @@ const Categories = ({categories})=> {
           imageUrl={imageUrl}
         />
       ))
-      console.log(categoryEls);
 
     return (
       <div className="categories-container">
