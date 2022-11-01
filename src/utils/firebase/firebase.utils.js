@@ -5,14 +5,15 @@ import { initializeApp } from "firebase/app";
 //googleAuthProvider: ig the auth engine
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 //getFireStore: fireStore engine
 //doc: doc agent
 //get & set doc: manage the doc
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { types } from "sass";
 // the config/key for firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAXEzzTSU49vxHTFsgVrHg1CZMmWskAmI8",
@@ -43,7 +44,8 @@ export const db = getFirestore();
 //we need a func so that we can store user's auth in firestore database
 
 //userAuth is the object we receive from sign in(sign in with google popup)
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, extraInfo = "") => {
+  if (!userAuth) return;
   //give us the document refrence inside the db as arg ,under users collectioin as arg with the specific id i gave u as arg
 
   //if theres no doc refrence in database, google will generate it for u anyway
@@ -72,13 +74,22 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     const createdAt = new Date();
     try {
       await setDoc(userDocRef, {
-        displayName,
+        displayName: (displayName ||= extraInfo),
         email,
         createdAt,
       });
     } catch (error) {
-      console.log("error creating the user", error.message);
+      if (error.code === "auth/email-already-in-use") {
+        console.log("email is already in use");
+      } else {
+        console.log("error creating the user", error.message);
+      }
     }
   }
   return userDocRef;
+};
+export const createAuthUserWithEmailAndPassword = (email, password) => {
+  if (!email || !password) return;
+  //what if i log it?????????????
+  return createUserWithEmailAndPassword(auth, email, password);
 };
