@@ -44,7 +44,7 @@ export const db = getFirestore();
 //we need a func so that we can store user's auth in firestore database
 
 //userAuth is the object we receive from sign in(sign in with google popup)
-export const createUserDocumentFromAuth = async (userAuth, extraInfo = "") => {
+export const createUserDocumentFromAuth = async (userAuth, extraInfo) => {
   if (!userAuth) return;
   //give us the document refrence inside the db as arg ,under users collectioin as arg with the specific id i gave u as arg
 
@@ -74,7 +74,7 @@ export const createUserDocumentFromAuth = async (userAuth, extraInfo = "") => {
     const createdAt = new Date();
     try {
       await setDoc(userDocRef, {
-        displayName: (displayName ||= extraInfo),
+        displayName: displayName ? displayName : extraInfo,
         email,
         createdAt,
       });
@@ -82,7 +82,8 @@ export const createUserDocumentFromAuth = async (userAuth, extraInfo = "") => {
       if (error.code === "auth/email-already-in-use") {
         console.log("email is already in use");
       } else {
-        console.log("error creating the user", error.message);
+        console.log("error creating the user : " + error.message);
+        console.log(error);
       }
     }
   }
@@ -90,6 +91,5 @@ export const createUserDocumentFromAuth = async (userAuth, extraInfo = "") => {
 };
 export const createAuthUserWithEmailAndPassword = (email, password) => {
   if (!email || !password) return;
-  //what if i log it?????????????
   return createUserWithEmailAndPassword(auth, email, password);
 };
