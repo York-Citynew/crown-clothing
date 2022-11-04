@@ -5,9 +5,10 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { types } from "sass";
 const firebaseConfig = {
   apiKey: "AIzaSyAXEzzTSU49vxHTFsgVrHg1CZMmWskAmI8",
   authDomain: "crown-clothing-1f8a8.firebaseapp.com",
@@ -66,4 +67,10 @@ export const createAuthUserWithEmailAndPassword = (email, password) => {
 export const signInAuthUserWithEmailAndPassword = (email, password) => {
   if (!email || !password) return;
   return signInWithEmailAndPassword(auth, email, password);
+};
+
+export const userSignOut = async () => signOut(auth);
+
+export const onAuthStateChangedListener = (callback) => {
+  onAuthStateChanged(auth, callback);
 };
