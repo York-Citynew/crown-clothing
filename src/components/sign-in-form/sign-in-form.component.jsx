@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { signInWithGooglePopup , createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils"
+import { signInWithGooglePopup , createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils"
 import FormInput from "../form-input/form-input.component"
 import Button from "../button/button.component"
 
@@ -15,18 +15,22 @@ export const SignInForm = ()=> {
     )
     const handleChange = (event) => {
         setFormData(()=>(
-            {
+            {  
                 ...formData,
                 [event.target.name] : event.target.value         
             }
         ))
     }
     const signInWithGoogle = async () => {
-        const {user} = await signInWithGooglePopup()
+    //    const {user} = 
+       await signInWithGooglePopup()
+        // createUserDocumentFromAuth(user)
     }
     const handleSubmit = async (event) => {
         event.preventDefault() 
             try {
+                // const {user} = 
+                await signInAuthUserWithEmailAndPassword(formData.email, formData.password)
                 setFormData(
                     defaultFormData
                 )
