@@ -11,7 +11,7 @@ const Shop = ()=> {
     const productsEl = products.map((product)=> {
         return (
             <ProductCard 
-            id={product.id}
+            key={product.id}
             product={product}
             />
         )
