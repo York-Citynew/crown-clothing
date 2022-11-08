@@ -6,7 +6,6 @@ import { DropdownContext } from "../../contexts/dropdown.context"
 const CartIcon = ()=> {
     const {setDropdown, cartItems} = useContext(DropdownContext)
     const toggleDropdown = ()=>setDropdown(prev=>!prev)
-    console.log(cartItems);
     return (
         <div onClick={toggleDropdown} className="cart-icon-container">
             <ShoppingIcon className="shopping-icon"/>

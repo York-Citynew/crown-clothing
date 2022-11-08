@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 const addCartItem = (cartItems, productToAdd) => {
-    const contains = cartItems.find(item => item.id === productToAdd.id)
+    const existingCardItem = cartItems.find(item => item.id === productToAdd.id)
 
-    if (contains) {
+    if (existingCardItem) {
         return cartItems.map(item => 
                 item.id === productToAdd.id?
                 {...item, quantity: item.quantity +1}:
@@ -11,11 +11,27 @@ const addCartItem = (cartItems, productToAdd) => {
     }
     return [...cartItems, {...productToAdd, quantity: 1}]
 }
+const removeCartItem = (cartItems, productToRemove) => {
+    const singleItem = productToRemove.quantity === 1
+    if (singleItem) {
+        return cartItems.filter(cartItem=> cartItem !== productToRemove)
+    }
+    return cartItems.map(cartItem => 
+        cartItem.id === productToRemove.id?
+        {...cartItem, quantity: cartItem.quantity -1}:
+        cartItem
+    )
+}
+const clearCartItem = (cartItems, productToClear)=> {
+    return cartItems.filter(cartItem=> cartItem !== productToClear)
+}
 export const DropdownContext = createContext({
     dropdown: false,
     setDropdown: ()=> {},
     cartItems: [],
-    addItemToCart: ()=>{}
+    addItemToCart: ()=>{},
+    removeItemFromCart: ()=>{},
+    removeAllFromCart: ()=>{}
 })
 
 export const DropdownProvider = ({children})=>{
@@ -25,9 +41,15 @@ export const DropdownProvider = ({children})=>{
     const addItemToCart = (productToAdd) => {
         setCartItems(addCartItem(cartItems, productToAdd))
     }
+    const removeItemFromCart = (productToRemove) => {
+        setCartItems(removeCartItem(cartItems, productToRemove))
+    }
+    const clearItemFromCart = productToClear => {
+        setCartItems(clearCartItem(cartItems, productToClear))
+    }
 
     const value= {
-        dropdown, setDropdown, addItemToCart, cartItems
+        dropdown, setDropdown, addItemToCart, removeItemFromCart, clearItemFromCart, cartItems
     }
     return (
         <DropdownContext.Provider value={value}>{children}</DropdownContext.Provider>
