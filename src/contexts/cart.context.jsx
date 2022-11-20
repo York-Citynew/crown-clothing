@@ -25,7 +25,7 @@ const removeCartItem = (cartItems, productToRemove) => {
 const clearCartItem = (cartItems, productToClear)=> {
     return cartItems.filter(cartItem=> cartItem !== productToClear)
 }
-export const DropdownContext = createContext({
+export const CartContext = createContext({
     dropdown: false,
     setDropdown: ()=> {},
     cartItems: [],
@@ -34,7 +34,7 @@ export const DropdownContext = createContext({
     removeAllFromCart: ()=>{}
 })
 
-export const DropdownProvider = ({children})=>{
+export const CartProvider = ({children})=>{
     const [dropdown, setDropdown] = useState(false)
     const [cartItems, setCartItems] = useState([])
 
@@ -52,6 +52,6 @@ export const DropdownProvider = ({children})=>{
         dropdown, setDropdown, addItemToCart, removeItemFromCart, clearItemFromCart, cartItems
     }
     return (
-        <DropdownContext.Provider value={value}>{children}</DropdownContext.Provider>
+        <CartContext.Provider value={value}>{children}</CartContext.Provider>
     )
 }

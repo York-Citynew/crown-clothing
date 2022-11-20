@@ -1,24 +1,40 @@
-import { useContext } from "react"
-import { DropdownContext } from "../../contexts/dropdown.context"
-import "./checkout-item.styles.scss"
+import { useContext } from "react";
+import { CartContext } from "../../contexts/cart.context";
+import {
+  Arrow,
+  CheckoutItemContainer,
+  ImageContainer,
+  Img,
+  Name,
+  Price,
+  Quantity,
+  RemoveButton,
+  Value,
+} from "./checkout-item.styles.jsx";
 
-const CheckoutItem = ({cartItem})=> {
-    const {name, imageUrl, price, quantity} = cartItem
-    const { addItemToCart, removeItemFromCart, clearItemFromCart } = useContext(DropdownContext)
-    return (
-        <div className="checkout-item-container">
-            <div className="image-container">
-                <img src={imageUrl} alt={name}/>
-            </div>
-            <span className="name">{name}</span>
-            <span className="quantity">
-                <div onClick={ ()=>addItemToCart(cartItem) }>&#10094;</div>
-                <span className="value">{cartItem.quantity}</span>
-                <div onClick={ ()=>removeItemFromCart(cartItem) }>&#10095;</div>
-            </span>
-            <span className="price">{price*quantity}</span>
-            <div className="remove-button" onClick={()=>clearItemFromCart(cartItem)}>&#10005;</div>
-        </div>
-    )
-}
-export default CheckoutItem
+const CheckoutItem = ({ cartItem }) => {
+  const { name, imageUrl, price, quantity } = cartItem;
+  const { addItemToCart, removeItemFromCart, clearItemFromCart } =
+    useContext(CartContext);
+  return (
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <Img
+          src={imageUrl}
+          alt={name}
+        />
+      </ImageContainer>
+      <Name>{name}</Name>
+      <Quantity>
+        <Arrow onClick={() => addItemToCart(cartItem)}>&#10094;</Arrow>
+        <Value>{cartItem.quantity}</Value>
+        <Arrow onClick={() => removeItemFromCart(cartItem)}>&#10095;</Arrow>
+      </Quantity>
+      <Price>{price * quantity}</Price>
+      <RemoveButton onClick={() => clearItemFromCart(cartItem)}>
+        &#10005;
+      </RemoveButton>
+    </CheckoutItemContainer>
+  );
+};
+export default CheckoutItem;
