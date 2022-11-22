@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ProductCard from "../product/product.component";
 import {
   CategoryPreviewContainer,
@@ -18,9 +17,7 @@ const CategoryPreview = ({ products, title, link }) => {
   return (
     <CategoryPreviewContainer>
       <h2>
-        <Link to={title}>
-          <Title>{title.toUpperCase()}</Title>
-        </Link>
+        <Title to={title}>{title.toUpperCase()}</Title>
       </h2>
       <Preview>{productsEl4}</Preview>
     </CategoryPreviewContainer>
