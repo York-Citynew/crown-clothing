@@ -7,8 +7,8 @@ import { useContext } from "react";
 import { CartContext } from "../../contexts/cart.context";
 
 const CartIcon = () => {
-  const { setDropdown, cartItems } = useContext(CartContext);
-  const toggleDropdown = () => setDropdown((prev) => !prev);
+  const { setDropdown, dropdown, cartItems } = useContext(CartContext);
+  const toggleDropdown = () => setDropdown(!dropdown);
   return (
     <CartIconContainer onClick={toggleDropdown}>
       <ShoppingIcon />

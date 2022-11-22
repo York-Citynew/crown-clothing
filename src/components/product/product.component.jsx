@@ -2,7 +2,7 @@ import {
   Footer,
   Name,
   Price,
-  productCardContainer,
+  ProductCardContainer,
 } from "./product.styles.jsx";
 
 import { useContext } from "react";
@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
   const handleAddItemToCart = () => addItemToCart(product);
 
   return (
-    <productCardContainer>
+    <ProductCardContainer>
       <img
         src={imageUrl}
         alt={name}
@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
       >
         Add to card
       </Button>
-    </productCardContainer>
+    </ProductCardContainer>
   );
 };
 
