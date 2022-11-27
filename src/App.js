@@ -8,7 +8,7 @@ import Auth from "./routes/auth/auth.component";
 import Checkout from "./routes/checkout/checkout.component";
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
-import { USER_ACTION_TYPES } from "./store/user/user.action.types";
+import { setCurrentUser } from "./store/features/current-user/current-user-slice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,10 +17,10 @@ const App = () => {
       if (user) {
         createUserDocumentFromAuth(user);
       }
-      dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
+      dispatch(setCurrentUser(user));
     });
     return unsubscribe;
-  }, [dispatch]); //just to get rid of "missing dependency" error
+  }, [dispatch]);
 
   return (
     <Routes>

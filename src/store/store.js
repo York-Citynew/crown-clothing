@@ -1,8 +1,14 @@
-import { compose, createStore, applyMiddleware } from "redux";
-import logger from "redux-logger";
-import { rootReducer } from "./root-reducer";
+import { configureStore } from "@reduxjs/toolkit";
+import currentUserSlice from "./features/current-user/current-user-slice";
+import categoriesSlice from "./features/categories/categories-slice";
+import cartSlice from "./features/cart/cart-slice";
 
-const middleware = [logger];
-const composedEnhancers = compose(applyMiddleware(...middleware));
+const store = configureStore({
+  reducer: {
+    currentUser: currentUserSlice,
+    categories: categoriesSlice,
+    cart: cartSlice,
+  },
+});
 
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+export default store;
