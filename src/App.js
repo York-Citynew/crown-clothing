@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Home from "./routes/home/home.component";
 import Shop from "./routes/shop/shop.component";
 import Navigation from "./routes/navigation/navigation.component";
@@ -9,9 +9,11 @@ import Checkout from "./routes/checkout/checkout.component";
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
 import { setCurrentUser } from "./store/features/current-user/current-user-slice";
+import { setCartCountAndCartTotal } from "./store/features/cart/cart-slice";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { cartItems } = useSelector((store) => store.cart);
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
@@ -21,7 +23,9 @@ const App = () => {
     });
     return unsubscribe;
   }, [dispatch]);
-
+  useEffect(() => {
+    dispatch(setCartCountAndCartTotal());
+  }, [cartItems, dispatch]); // added the dispatch dependency to get rid of the "missing dependency" error
   return (
     <Routes>
       <Route
