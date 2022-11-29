@@ -40,7 +40,6 @@ const cartSlice = createSlice({
       );
     },
     setCartCountAndCartTotal: (store) => {
-      console.log("reducer ran");
       const cartTotal = store.cartItems.reduce((acc, cartItem) => {
         acc += cartItem.quantity * cartItem.price;
         return acc;

@@ -5,7 +5,7 @@ import {
   Title,
 } from "./category-preview.styles.jsx";
 
-const CategoryPreview = ({ products, title, link }) => {
+const CategoryPreview = ({ products, title }) => {
   const productsEl4 = products.slice(0, 4).map((product) => {
     return (
       <ProductCard
