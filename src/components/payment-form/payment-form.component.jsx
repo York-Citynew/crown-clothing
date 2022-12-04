@@ -30,7 +30,7 @@ const PaymentForm = () => {
     let client_secret;
     let paymentResult;
 
-    client_secret = response.paymentIntent.client_secret;
+    client_secret = await response.paymentIntent.client_secret;
     paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
         card: elements.getElement(CardElement),
