@@ -29,22 +29,21 @@ const PaymentForm = () => {
     }).then((res) => res.json());
     let client_secret;
     let paymentResult;
-    if (!response.error) {
-      client_secret = response.paymentIntent.client_secret;
-      paymentResult = await stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: displayName ? displayName : "Guest",
-          },
+
+    client_secret = response.paymentIntent.client_secret;
+    paymentResult = await stripe.confirmCardPayment(client_secret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: displayName ? displayName : "Guest",
         },
-      });
-    }
+      },
+    });
 
     //fix this
     setIsProcessingPayment((prev) => !prev);
-    if (response.error || paymentResult.error) {
-      alert(paymentResult.error || response.error);
+    if (paymentResult.error) {
+      alert(paymentResult.error);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
         alert("Payment successful");
