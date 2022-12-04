@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { SpinnerContainer } from "../spinner/spinner.styles";
+
 export const BaseButton = styled.button`
   min-width: 165px;
   width: auto;
@@ -11,6 +13,7 @@ export const BaseButton = styled.button`
   background-color: black;
   color: white;
   text-transform: uppercase;
+  font-size: 0.8em;
   font-family: "Open Sans Condensed";
   font-weight: bolder;
   border: none;
@@ -19,7 +22,7 @@ export const BaseButton = styled.button`
   justify-content: center;
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-
+  align-items: center;
   &:hover {
     background-color: white;
     color: black;
@@ -47,4 +50,9 @@ export const InvertedButton = styled(BaseButton)`
     color: white;
     border: none;
   }
+`;
+
+export const ButtonSpinner = styled(SpinnerContainer)`
+  width: 30px;
+  height: 30px;
 `;

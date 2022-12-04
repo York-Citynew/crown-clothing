@@ -54,6 +54,9 @@ const cartSlice = createSlice({
     toggleIsCartOpen: (store) => {
       store.isCartOpen = !store.isCartOpen;
     },
+    clearCart: (store) => {
+      store.cartItems = [];
+    },
   },
 });
 
@@ -64,4 +67,5 @@ export const {
   removeCartItem,
   setCartCountAndCartTotal,
   toggleIsCartOpen,
+  clearCart,
 } = cartSlice.actions;
