@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import Spinner from "../../components/spinner/spinner.component";
 import categoriesMapper from "../../store/features/categories/categories-mapper";
 const CategoriesPreview = () => {
-  console.log("component re-rendered");
   const { isLoading, categories } = useSelector((store) => store.categories);
   const categoriesMap = categoriesMapper(categories);
   const categoriesEl = Object.keys(categoriesMap).map((title) => (
