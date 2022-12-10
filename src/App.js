@@ -1,15 +1,18 @@
 import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Home from "./routes/home/home.component";
-import Shop from "./routes/shop/shop.component";
-import Navigation from "./routes/navigation/navigation.component";
-import Auth from "./routes/auth/auth.component";
-import Checkout from "./routes/checkout/checkout.component";
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
 import { setCurrentUser } from "./store/features/current-user/current-user-slice";
 import { setCartCountAndCartTotal } from "./store/features/cart/cart-slice";
+import Spinner from "./components/spinner/spinner.component";
+const Auth = lazy(() => import("./routes/auth/auth.component"));
+const Home = lazy(() => import("./routes/home/home.component"));
+const Navigation = lazy(() =>
+  import("./routes/navigation/navigation.component")
+);
+const Shop = lazy(() => import("./routes/shop/shop.component"));
+const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,29 +30,31 @@ const App = () => {
     dispatch(setCartCountAndCartTotal());
   }, [cartItems, dispatch]); // added the dispatch dependency to get rid of the "missing dependency" error
   return (
-    <Routes>
-      <Route
-        path='/'
-        element={<Navigation />}
-      >
+    <Suspense fallback={<Spinner />}>
+      <Routes>
         <Route
-          index
-          element={<Home />}
-        />
-        <Route
-          path='shop/*'
-          element={<Shop />}
-        />
-        <Route
-          path='auth'
-          element={<Auth />}
-        />
-        <Route
-          path='checkout'
-          element={<Checkout />}
-        />
-      </Route>
-    </Routes>
+          path='/'
+          element={<Navigation />}
+        >
+          <Route
+            index
+            element={<Home />}
+          />
+          <Route
+            path='shop/*'
+            element={<Shop />}
+          />
+          <Route
+            path='auth'
+            element={<Auth />}
+          />
+          <Route
+            path='checkout'
+            element={<Checkout />}
+          />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
 
