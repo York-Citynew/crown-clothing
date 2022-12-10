@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { memo } from "react";
 import {
   Arrow,
   CheckoutItemContainer,
@@ -16,7 +17,7 @@ import {
   removeCartItem,
 } from "../../store/features/cart/cart-slice.js";
 
-const CheckoutItem = ({ cartItem }) => {
+const CheckoutItem = memo(({ cartItem }) => {
   const dispatch = useDispatch();
   const { name, imageUrl, price, quantity } = cartItem;
   const addCartItemHandler = () => dispatch(addCartItem(cartItem));
@@ -40,5 +41,5 @@ const CheckoutItem = ({ cartItem }) => {
       <RemoveButton onClick={clearCartItemHandler}>&#10005;</RemoveButton>
     </CheckoutItemContainer>
   );
-};
+});
 export default CheckoutItem;
