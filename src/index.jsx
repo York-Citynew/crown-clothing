@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyles = createGlobalStyle`
 body {
   margin: 0;
   padding: 1.25em 2.5em;
@@ -6,6 +9,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @media screen and (max-width: 800px)  {
+    padding: 1em;
+  }
 }
 
 code {
@@ -25,3 +31,5 @@ button {
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 0.7em;
 }
+
+`;

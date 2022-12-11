@@ -13,14 +13,14 @@ const Category = () => {
   const [products, setProducts] = useState(categoriesMap[category]);
   useEffect(() => {
     setProducts(categoriesMap[category]);
-  }, [categoriesMap, category]); //problem: do we need categoriesMap any more?
+  }, [categoriesMap, category]);
   return isLoading ? (
     <Spinner />
   ) : (
     <Fragment>
       <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
       <CategoryContainer>
-        {products && //problem: do we need products to protect our code?
+        {products &&
           products.map((product) => (
             <ProductCard
               key={product.id}
