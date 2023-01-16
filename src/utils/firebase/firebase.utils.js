@@ -19,12 +19,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyAXEzzTSU49vxHTFsgVrHg1CZMmWskAmI8",
-  authDomain: "crown-clothing-1f8a8.firebaseapp.com",
-  projectId: "crown-clothing-1f8a8",
-  storageBucket: "crown-clothing-1f8a8.appspot.com",
-  messagingSenderId: "740820177759",
-  appId: "1:740820177759:web:dafdaf9aaae65b5d669cea",
+// your Firebase config
 };
 initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
